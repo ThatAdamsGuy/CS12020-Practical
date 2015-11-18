@@ -78,19 +78,21 @@ String maceString;                //The final output as its own string
 
 void setup() {
   // put your setup code here, to run once:
-
   Serial.begin(9600);
-
-  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
   getInputString();
-  inputStringToMace();
-  Serial.println();
-  Serial.println();
+  if (inputString.charAt(0) == '$' ||inputString.charAt(0) == '^' ||inputString.charAt(0) == '=') {
+    inputStringToAscii();
+  }
+  else {
+    inputStringToMace();
+    Serial.println();
+    Serial.println();
+  }
 }
 
 
@@ -173,10 +175,10 @@ void inputStringToMace() {
     nextChar = tolower(nextChar);
     maceChar = getMaceChar(inputChar);
     nextMaceChar = getMaceChar(nextChar);
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.println(inputChar);
     Serial.println(nextChar);
-    #endif
+#endif
     if (nextMaceChar == " ") {
       maceString = maceString + maceChar;
     }
@@ -190,5 +192,7 @@ void inputStringToMace() {
   Serial.println(maceString);
 }
 
-
+void inputStringToAscii() {
+  Serial.println("This is a MACE string. This functionality is not yet supported. Please input an ASCII string");
+}
 
