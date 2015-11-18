@@ -84,9 +84,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
   getInputString();
-  if (inputString.charAt(0) == '$' ||inputString.charAt(0) == '^' ||inputString.charAt(0) == '=') {
+  if (inputString.charAt(0) == '$' || inputString.charAt(0) == '^' || inputString.charAt(0) == '=') {
     inputStringToAscii();
   }
   else {
@@ -197,23 +196,73 @@ void inputStringToMace() {
 
 void inputStringToAscii() {
   maceTree();
+  Serial.println(asciiString);
+  Serial.println();
 }
 
-void maceTree(){
+void maceTree() {
   int pointer = 0;
-  while (pointer < inputStringLength){
-     if (inputString.charAt(pointer) == '='){
+  while (pointer < inputStringLength) {
+    if (inputString.charAt(pointer) == '=') {
       pointer++;
-      Serial.println("A");
-     }
-     else if (inputString.charAt(pointer) == '$'){
+      if (inputString.charAt(pointer) == '=') {
+        pointer++;
+      }
+      else if (inputString.charAt(pointer) == '$') {
+        pointer++;
+      }
+      else if (inputString.charAt(pointer) == '^') {
+
+      }
+      else {
+        pointer++;
+        asciiString = asciiString + 'A';
+      }
+    }
+    else if (inputString.charAt(pointer) == '$') {
       pointer++;
-      Serial.println("T");
-     }
-     else {
+      if (inputString.charAt(pointer) == '=') {
+        pointer++;
+
+      }
+      else if (inputString.charAt(pointer) == '$') {
+        pointer++;
+
+      }
+      else if (inputString.charAt(pointer) == '^') {
+        pointer++;
+
+      }
+      else {
+        pointer++;
+        asciiString = asciiString + 'T';
+      }
+    }
+    else if (inputString.charAt(pointer) == '^') {
       pointer++;
-      Serial.println("E");
-     }
+      if (inputString.charAt(pointer) == '=') {
+        pointer++;
+      }
+      else if (inputString.charAt(pointer) == '$') {
+        pointer++;
+
+      }
+      else if (inputString.charAt(pointer) == '^') {
+        pointer++;
+
+      }
+      else {
+        pointer++;
+        asciiString = asciiString + 'E';
+      }
+    }
+    else if (inputString.charAt(pointer) == '/') {
+      pointer++;            //If char is a slash, not going to be start of a char, so +1 and go again.
+    }
+    else {
+      pointer++;            //ERROR DETECTION - If not a =$^/, write invalid character.
+      Serial.println("!!INVALID CHARACTER!!");
+    }
   }
 }
 
