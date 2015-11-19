@@ -1,7 +1,8 @@
 void maceTree() {
 
 //This is a very very nested series of 'if' statements to translate characters from MACE to ASCII
-//
+//"pointer" points at the current character of MACE being looked at.
+//Based on the tree diagram in the writeup, it can determine if it has reached the end of the tree (due to the 'next' character being a slash)
   
   int pointer = 0;
   while (pointer < inputStringLength) {
