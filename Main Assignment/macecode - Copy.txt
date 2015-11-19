@@ -1,0 +1,2 @@
+char mace_space[] = " ";
+char mace_error[] = "Untranslateable Character";

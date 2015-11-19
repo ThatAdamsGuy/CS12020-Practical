@@ -75,6 +75,7 @@ int inputStringLength;            //Length of input string (used for loops)
 String maceChar;                  //The mace char in the stringToMace loop
 String nextMaceChar;
 String maceString;                //The final output as its own string
+String asciiString;
 
 void setup() {
   // put your setup code here, to run once:
@@ -83,9 +84,15 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  inputString = "";
+  maceChar = "";
+  nextMaceChar = "";
+  maceString = "";
+  asciiString = "";
+
 
   getInputString();
-  if (inputString.charAt(0) == '$' ||inputString.charAt(0) == '^' ||inputString.charAt(0) == '=') {
+  if (inputString.charAt(0) == '$' || inputString.charAt(0) == '^' || inputString.charAt(0) == '=') {
     inputStringToAscii();
   }
   else {
@@ -192,7 +199,14 @@ void inputStringToMace() {
   Serial.println(maceString);
 }
 
+
+
 void inputStringToAscii() {
-  Serial.println("This is a MACE string. This functionality is not yet supported. Please input an ASCII string");
+  maceTree();
+  Serial.println(asciiString);
+  Serial.println();
 }
+
+
+
 
