@@ -1,3 +1,4 @@
+//The function is sent the inputChar (from the inputStringToMace() function)
 //Checks the "Current character" against this case statement, and returns the MACE equivelant.
 
 char* getMaceChar(char inputChar) {

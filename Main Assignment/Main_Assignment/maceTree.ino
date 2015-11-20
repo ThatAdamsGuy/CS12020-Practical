@@ -1,4 +1,4 @@
-void maceTree() {
+  void maceTree() {
 
 //This is a very very nested series of 'if' statements to translate characters from MACE to ASCII
 //"pointer" points at the current character of MACE being looked at.

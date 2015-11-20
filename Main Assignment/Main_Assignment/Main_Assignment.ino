@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #define IR_Receiver 2
 #define Switch_S1 3
@@ -89,9 +89,12 @@ String nextMaceChar;
 String maceString;                //The final output as its own string
 String asciiString;
 int timeUnit;
+
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  startupFlash();
 }
 
 void loop() {
@@ -102,19 +105,21 @@ void loop() {
   maceString = "";
   asciiString = "";
 
-
   getInputString();
+  
   if (inputString.charAt(0) == '$' || inputString.charAt(0) == '^' || inputString.charAt(0) == '=') {
     inputStringToAscii();
   }
   else {
     inputStringToMace();
-    Serial.println();
-    Serial.println();
   }
 
-  timeUnit = 10 + analogRead(POTENTIOMETER);
-  flashMaceString();
+  timeUnit = map(analogRead(POTENTIOMETER), 0, 1023, 20, 500);
+#ifdef DEBUG
+  Serial.print("Time unit: ");
+  Serial.println(timeUnit);
+#endif
+  
 }
 
 
@@ -159,6 +164,7 @@ void inputStringToMace() {
     }
   }
   Serial.println(maceString);
+  flashTranslatedMaceString();
 }
 
 
@@ -167,42 +173,11 @@ void inputStringToAscii() {
   maceTree();
   Serial.println(asciiString);
   Serial.println();
+  flashInputtedMaceString();
 }
 
-void flashMaceString() {
-  maceStringLength = maceString.length();
-  for (int i = 0; i < maceStringLength; i++) {
-    if (maceString.charAt(i) == '=') {
-      equalsLED();
-      if (maceString.charAt(i+1) != ' ' ||maceString.charAt(i+1) != '/'){
-        delay(timeUnit);
-      }
-    }
-    else if (maceString.charAt(i) == '$') {
-      dollarLED();
-      if (maceString.charAt(i+1) != ' ' ||maceString.charAt(i+1) != '/'){
-        delay(timeUnit);
-      }
-    }
-    else if (maceString.charAt(i) == '^') {
-      upLED();
-      if (maceString.charAt(i+1) != ' ' ||maceString.charAt(i+1) != '/'){
-        delay(timeUnit);
-      }
-    }
-    else if (maceString.charAt(i) == ' ') {
-      spaceLED();
-    }
-    else if (maceString.charAt(i) == '/') {
-      slashLED();
-    }
-    else {
-      errorLED();
-    }
-#ifdef DEBUG
-    Serial.print(maceString.charAt(i));    
-#endif
-  }
-  Serial.println();
-}
+
+
+
+
 
