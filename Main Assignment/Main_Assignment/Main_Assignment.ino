@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 
 #define IR_Receiver 2
 #define Switch_S1 3
@@ -83,6 +83,7 @@ String inputString;               //The string to be translated
 char inputChar;                   //The char being worked on at any given time in the stringToMace loop
 char nextChar;
 int inputStringLength;            //Length of input string (used for loops)
+int maceStringLength;             //Length of MACE characters string
 String maceChar;                  //The mace char in the stringToMace loop
 String nextMaceChar;
 String maceString;                //The final output as its own string
@@ -90,7 +91,7 @@ String asciiString;
 int timeUnit;
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600); 
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -113,15 +114,7 @@ void loop() {
   }
 
   timeUnit = 10 + analogRead(POTENTIOMETER);
-
-  dollarLED();
-  sameCharacterDelayLED();
-  equalsLED();
-  sameCharacterDelayLED();
-  upLED();
-  spaceLED();
-  dollarLED(); 
-  
+  flashMaceString();
 }
 
 
@@ -176,5 +169,40 @@ void inputStringToAscii() {
   Serial.println();
 }
 
-
+void flashMaceString() {
+  maceStringLength = maceString.length();
+  for (int i = 0; i < maceStringLength; i++) {
+    if (maceString.charAt(i) == '=') {
+      equalsLED();
+      if (maceString.charAt(i+1) != ' ' ||maceString.charAt(i+1) != '/'){
+        delay(timeUnit);
+      }
+    }
+    else if (maceString.charAt(i) == '$') {
+      dollarLED();
+      if (maceString.charAt(i+1) != ' ' ||maceString.charAt(i+1) != '/'){
+        delay(timeUnit);
+      }
+    }
+    else if (maceString.charAt(i) == '^') {
+      upLED();
+      if (maceString.charAt(i+1) != ' ' ||maceString.charAt(i+1) != '/'){
+        delay(timeUnit);
+      }
+    }
+    else if (maceString.charAt(i) == ' ') {
+      spaceLED();
+    }
+    else if (maceString.charAt(i) == '/') {
+      slashLED();
+    }
+    else {
+      errorLED();
+    }
+#ifdef DEBUG
+    Serial.print(maceString.charAt(i));    
+#endif
+  }
+  Serial.println();
+}
 

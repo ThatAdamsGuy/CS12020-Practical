@@ -20,10 +20,16 @@ void spaceLED() {
   delay(5 * timeUnit);
 }
 
-void charactersInWordLED() {
+void slashLED() {
   delay(3 * timeUnit);
 }
 
-void sameCharacterDelayLED() {
-  delay(timeUnit);
+void errorLED() {
+  for (int i = 0; i < 5; i++) {
+    digitalWrite(REDLED, HIGH);
+    delay(200);
+    digitalWrite(REDLED, LOW);
+    delay(200);
+  }
 }
+
