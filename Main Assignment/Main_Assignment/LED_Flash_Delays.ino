@@ -4,6 +4,12 @@
 
 void flashTranslatedMaceString() {  //TRANSLATED MACE ONLY - Flashes RED LED
   maceStringLength = maceString.length(); //Gets length of the Mace String
+  timeUnit = map(analogRead(POTENTIOMETER), 0, 1023, 20, 500);
+
+#ifdef DEBUG
+  Serial.println(timeUnit)
+#endif
+
   for (int i = 0; i < maceStringLength; i++) {  //A loop for the number of characters in the string
     if (maceString.charAt(i) == '=') {  //Checks the current character in the MACE string
       equalsREDLED(); //Runs the LED Function for that character
@@ -42,6 +48,12 @@ void flashTranslatedMaceString() {  //TRANSLATED MACE ONLY - Flashes RED LED
 
 
 void flashInputtedMaceString() {
+  timeUnit = map(analogRead(POTENTIOMETER), 0, 1023, 20, 500);
+
+#ifdef DEBUG
+  Serial.println(timeUnit)
+#endif
+
   for (int i = 0; i < inputStringLength; i++) {  //A loop for the number of characters in the string
     if (inputString.charAt(i) == '=') {  //Checks the current character in the INPUT string
       equalsBLUELED(); //Runs the LED Function for that character
@@ -70,9 +82,11 @@ void flashInputtedMaceString() {
     else {
       errorBLUELED();
     }
+
 #ifdef DEBUG
     Serial.print(inputString.charAt(i));
 #endif
+
   }
 }
 

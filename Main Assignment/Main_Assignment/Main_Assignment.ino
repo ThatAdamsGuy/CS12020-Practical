@@ -106,20 +106,21 @@ void loop() {
   asciiString = "";
 
   getInputString();
-  
+
   if (inputString.charAt(0) == '$' || inputString.charAt(0) == '^' || inputString.charAt(0) == '=') {
     inputStringToAscii();
+    flashInputtedMaceString();
   }
   else {
     inputStringToMace();
+    flashTranslatedMaceString();
   }
 
-  timeUnit = map(analogRead(POTENTIOMETER), 0, 1023, 20, 500);
 #ifdef DEBUG
   Serial.print("Time unit: ");
   Serial.println(timeUnit);
 #endif
-  
+
 }
 
 
@@ -164,7 +165,6 @@ void inputStringToMace() {
     }
   }
   Serial.println(maceString);
-  flashTranslatedMaceString();
 }
 
 
@@ -173,7 +173,6 @@ void inputStringToAscii() {
   maceTree();
   Serial.println(asciiString);
   Serial.println();
-  flashInputtedMaceString();
 }
 
 
