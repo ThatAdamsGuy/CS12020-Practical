@@ -88,6 +88,7 @@ String maceChar;                  //The mace char in the stringToMace loop
 String nextMaceChar;
 String maceString;                //The final output as its own string
 String asciiString;
+String commandString;             //Puts the MACE part of the loop into this string to be used in the Commands checking section.
 int timeUnit;
 
 
@@ -137,39 +138,6 @@ void getInputString() {
   Serial.print("String length: ");
   Serial.println(inputStringLength);
 #endif
-}
-
-void inputStringToMace() {
-  for (int i = 0; i < inputStringLength; i++) {
-    inputChar = inputString.charAt(i);
-    inputChar = tolower(inputChar);
-    nextChar = inputString.charAt(i + 1);
-    nextChar = tolower(nextChar);
-    maceChar = getMaceChar(inputChar);
-    nextMaceChar = getMaceChar(nextChar);
-#ifdef DEBUG
-    Serial.println(inputChar);
-    Serial.println(nextChar);
-#endif
-    if (nextMaceChar == " ") {
-      maceString = maceString + maceChar;
-    }
-    else if (maceChar == " ") {
-      maceString = maceString + maceChar;
-    }
-    else {
-      maceString = maceString + maceChar + "/";
-    }
-  }
-  Serial.println(maceString);
-}
-
-
-
-void inputStringToAscii() {
-  maceTree();
-  Serial.println(asciiString);
-  Serial.println();
 }
 
 
