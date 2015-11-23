@@ -8,7 +8,7 @@ void flashTranslatedMaceString() {  //TRANSLATED MACE ONLY - Flashes RED LED
 
 #ifdef DEBUG
   Serial.print("Time unit: ");
-  Serial.println(timeUnit)
+  Serial.println(timeUnit);
 #endif
 
   for (int i = 0; i < maceStringLength; i++) {  //A loop for the number of characters in the string
@@ -53,7 +53,7 @@ void flashInputtedMaceString() {
 
 #ifdef DEBUG
   Serial.print("Time unit: ");
-  Serial.println(timeUnit)
+  Serial.println(timeUnit);
 #endif
 
   for (int i = 0; i < inputStringLength; i++) {  //A loop for the number of characters in the string

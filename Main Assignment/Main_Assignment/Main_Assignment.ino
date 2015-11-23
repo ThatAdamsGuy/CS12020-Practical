@@ -1,6 +1,6 @@
-//#define DEBUG
+#define DEBUG
 
-#define IR_Receiver 2
+#define IR_RECEIVER 2
 #define Switch_S1 3
 #define REDLED 5
 #define ORANGELED 6
@@ -8,8 +8,8 @@
 #define GREENLED 10
 #define BLUELED 11
 #define POTENTIOMETER A0
-#define IR_Transmit A1
-#define Mono_Jack A2
+#define IR_TRANSMIT A1
+#define MONO_JACK A2
 
 //Code started - 09/11/2015
 //Code by Harry Adams (haa14@aber.ac.uk) for CS12020 Assignment
@@ -85,17 +85,18 @@ char nextChar;
 int inputStringLength;            //Length of input string (used for loops)
 int maceStringLength;             //Length of MACE characters string
 String maceChar;                  //The mace char in the stringToMace loop
-String nextMaceChar;
+String nextMaceChar;              //Looks at the next MACE Char (used to detect spaces or end of line)
 String maceString;                //The final output as its own string
 String asciiString;
 String commandString;             //Puts the MACE part of the loop into this string to be used in the Commands checking section.
+bool checkLPDigits;
 int timeUnit;
 
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  startupFlash();
+   startupFlash();
 }
 
 void loop() {
