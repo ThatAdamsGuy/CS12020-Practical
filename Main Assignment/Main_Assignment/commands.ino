@@ -1,8 +1,11 @@
 void checkForCommand() {
+  int commandASCIILength = commandASCII.length();
   //Checks if the input starts LP
-  if (commandString.charAt(0) == 76 && commandString.charAt(1) == 80) {
+  if (commandASCII.charAt(0) == 'L' && commandASCII.charAt(1) == 'P' && commandASCIILength == 14) {
+    Serial.println("Checking for the LP command");
     for (int i = 2; i < 12; i++) {  //For all the "digits" in the input
-      if (isdigit(commandString.charAt(i))) { //Checks that each digit is, in fact, a digit
+      int checkDigit = commandASCII.charAt(i);
+      if (isdigit(checkDigit)) { //Checks that each digit is, in fact, a digit
         checkLPDigits = 1;  //If it's a digit, boolean is true.
 #ifdef DEBUG
         Serial.println(checkLPDigits);
@@ -56,6 +59,8 @@ void RXIR() {
 #ifdef DEBUG
   Serial.println("RXIR COMMAND");
 #endif
+  Serial.println("IR Receiver Value: ");
+  Serial.println(analogRead(IR_RECEIVER));
 
 }
 

@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #define IR_RECEIVER 2
 #define Switch_S1 3
@@ -89,6 +89,7 @@ String nextMaceChar;              //Looks at the next MACE Char (used to detect 
 String maceString;                //The final output as its own string
 String asciiString;
 String commandString;             //Puts the MACE part of the loop into this string to be used in the Commands checking section.
+String commandASCII;              //The string, also in ASCII, for commands (used for LP command)
 bool checkLPDigits;
 int timeUnit;
 

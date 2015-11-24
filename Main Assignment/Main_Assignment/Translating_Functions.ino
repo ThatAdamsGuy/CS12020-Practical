@@ -25,6 +25,7 @@ void inputStringToMace() {
   }
   Serial.println(maceString);
   commandString = maceString;
+  commandASCII = inputString;
 }
 
 void inputStringToAscii() {
@@ -32,6 +33,7 @@ void inputStringToAscii() {
   Serial.println(asciiString);
   Serial.println();
   commandString = inputString;
+  commandASCII = asciiString;
 }
 
 
