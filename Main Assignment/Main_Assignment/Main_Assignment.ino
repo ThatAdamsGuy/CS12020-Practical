@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 
 #define IR_RECEIVER 2
 #define Switch_S1 3
@@ -13,6 +13,10 @@
 
 //Code started - 09/11/2015
 //Code by Harry Adams (haa14@aber.ac.uk) for CS12020 Assignment
+//Help gotten from the Arduino forums. Specific posts:
+//Integer substrings: https://forum.arduino.cc/index.php?topic=361541.0
+//Detecting input as int: http://forum.arduino.cc/index.php?topic=361232.msg2490774
+//Altering potentiometer minmax values: http://forum.arduino.cc/index.php?topic=360717.msg2487297
 
 // ^ : 1 time unit
 // = : 2 time units
@@ -78,6 +82,8 @@ char mace_equals[] = "$==$";      //4224
 char mace_space[] = " ";
 char mace_error[] = "Untranslateable Character";
 
+char space = ' ';
+
 //Other
 String inputString;               //The string to be translated
 char inputChar;                   //The char being worked on at any given time in the stringToMace loop
@@ -132,7 +138,7 @@ String getStringInput() {
 }
 
 void getInputString() {
-  Serial.print("What is your input string?: ");
+  Serial.println("What is your input string?: ");
   inputString = getStringInput();
   Serial.println(inputString);
   inputStringLength = inputString.length();

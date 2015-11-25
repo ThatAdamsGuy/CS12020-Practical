@@ -28,8 +28,26 @@ void inputStringToMace() {
   commandASCII = inputString;
 }
 
+
+
 void inputStringToAscii() {
   maceTree();
+  int asciiStringLength = asciiString.length();
+
+  //This loop checks for an ending space for the MACE string, and removes it
+  //Created as I kept copy-pasting previous translations with a space
+  if (asciiString.charAt(asciiStringLength - 1) == ' ') {
+    String tempSub;
+    tempSub = asciiString.substring(0, (asciiStringLength - 1));
+    #ifdef DEBUG
+    Serial.println("Substring: ");
+    Serial.println(tempSub);
+    #endif
+    asciiString = tempSub;
+  }
+
+
+  
   Serial.println(asciiString);
   Serial.println();
   commandString = inputString;
