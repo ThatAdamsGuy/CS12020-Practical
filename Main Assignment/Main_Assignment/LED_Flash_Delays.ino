@@ -4,8 +4,11 @@
 
 void flashTranslatedMaceString() {  //TRANSLATED MACE ONLY - Flashes RED LED
   maceStringLength = maceString.length(); //Gets length of the Mace String
-  timeUnit = map(analogRead(POTENTIOMETER), 0, 1023, 20, 500);
+  timeUnit = map(analogRead(POTENTIOMETER), 0, 1023, 20, 500); 
+  //Sets the time unit to the current potentiometer reading.
+  //map() function takes the normal values (0-1023) and resets it to (20-500) as specified in the assignment.
 
+  //Displays the time unit specified if in Debug mode
 #ifdef DEBUG
   Serial.print("Time unit: ");
   Serial.println(timeUnit);
@@ -50,16 +53,17 @@ void flashTranslatedMaceString() {  //TRANSLATED MACE ONLY - Flashes RED LED
 
 void flashInputtedMaceString() {
   timeUnit = map(analogRead(POTENTIOMETER), 0, 1023, 20, 500);
+  //map function allows me to remap min-max values of potentiometer to fit in assignment brief
 
 #ifdef DEBUG
-  Serial.print("Time unit: ");
+  Serial.print("Time unit: "); //Prints the given time unit Potentiometer value (range 20-500)
   Serial.println(timeUnit);
 #endif
 
   for (int i = 0; i < inputStringLength; i++) {  //A loop for the number of characters in the string
     if (inputString.charAt(i) == '=') {  //Checks the current character in the INPUT string
       equalsBLUELED(); //Runs the LED Function for that character
-      if (inputString.charAt(i + 1) != ' ' || inputString.charAt(i + 1) != '/') { //Checks if the next character is part if the same letter
+      if (inputString.charAt(i + 1) != ' ' || inputString.charAt(i + 1) != '/') { //Checks if the next character is part of the same letter or a space/slash
         delay(timeUnit);  //If so, add the appropriate delay
       }
     }
@@ -86,7 +90,7 @@ void flashInputtedMaceString() {
     }
 
 #ifdef DEBUG
-    Serial.print(inputString.charAt(i));
+    Serial.print(inputString.charAt(i));  //Prints the character just translated
 #endif
 
   }
@@ -97,6 +101,7 @@ void flashInputtedMaceString() {
 
 
 
+//Functions for turning LEDs on and off for all the different characters
 
 void equalsREDLED() {
   digitalWrite(REDLED, HIGH);
@@ -118,9 +123,9 @@ void upREDLED() {
 
 void errorREDLED() {
   for (int i = 0; i < 5; i++) {
-    digitalWrite(REDLED, HIGH);
+    digitalWrite(GREENLED, HIGH);
     delay(100);
-    digitalWrite(REDLED, LOW);
+    digitalWrite(GREENLED, LOW);
     delay(100);
   }
 }
@@ -147,9 +152,9 @@ void upBLUELED() {
 
 void errorBLUELED() {
   for (int i = 0; i < 5; i++) {
-    digitalWrite(BLUELED, HIGH);
+    digitalWrite(GREENLED, HIGH);
     delay(100);
-    digitalWrite(BLUELED, LOW);
+    digitalWrite(GREENLED, LOW);
     delay(100);
   }
 }

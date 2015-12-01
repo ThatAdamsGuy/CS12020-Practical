@@ -1,3 +1,6 @@
+//This switch statement gets the MACE equivelant of an ASCII character
+//For every character this switch statement is run.
+
 char* getMaceChar(char inputChar) {
   switch (inputChar) {
     case 'a': return mace_a;

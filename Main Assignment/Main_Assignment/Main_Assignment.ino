@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #define IR_RECEIVER 2
 #define Switch_S1 3
@@ -81,13 +81,12 @@ char mace_divide[] = "$^$";       //414
 char mace_equals[] = "$==$";      //4224
 char mace_space[] = " ";
 char mace_error[] = "Untranslateable Character";
-
 char space = ' ';
 
 //Other
 String inputString;               //The string to be translated
 char inputChar;                   //The char being worked on at any given time in the stringToMace loop
-char nextChar;
+char nextChar;                    //Used purely for debug
 int inputStringLength;            //Length of input string (used for loops)
 int maceStringLength;             //Length of MACE characters string
 String maceChar;                  //The mace char in the stringToMace loop
@@ -96,14 +95,24 @@ String maceString;                //The final output as its own string
 String asciiString;
 String commandString;             //Puts the MACE part of the loop into this string to be used in the Commands checking section.
 String commandASCII;              //The string, also in ASCII, for commands (used for LP command)
-bool checkLPDigits;
-int timeUnit;
+bool checkLPDigits;               //Boolean used in the LP command loop
+int timeUnit;                     //Reads the value from the potentiometer and uses this as the delay (in ms) ranging from 20-500.
 
 
 void setup() {
-  // put your setup code here, to run once:
+  //Set baud rate
   Serial.begin(9600);
-   startupFlash();
+
+  //Sets the LED to Output (otherwise has brightnedd issues)
+  pinMode(REDLED, OUTPUT);
+  pinMode(ORANGELED, OUTPUT);
+  pinMode(YELLOWLED, OUTPUT);
+  pinMode(GREENLED, OUTPUT);
+  pinMode(BLUELED, OUTPUT);
+  pinMode(IR_RECEIVER, OUTPUT);
+
+  //run the startupFlash function (small light show to show program has started new)
+  startupFlash();
 }
 
 void loop() {
@@ -114,38 +123,56 @@ void loop() {
   maceString = "";
   asciiString = "";
 
-  getInputString();
+  getInputString(); //Get the user's input
 
+  //Detects leading spaces and removes them.
+  while (inputString.charAt(0) == ' ') {
+    String subInput;
+    subInput = inputString.substring(1, inputStringLength);
+    inputString = subInput;
+    inputStringLength = inputString.length();
+  }
+
+  //Detects if the input is ASCII or MACE
   if (inputString.charAt(0) == '$' || inputString.charAt(0) == '^' || inputString.charAt(0) == '=') {
+    //If MACE, run functions to translate MACE to ASCII, and then flash the BLUE LED
     inputStringToAscii();
     flashInputtedMaceString();
   }
   else {
+    //If ASCII, run functions to translate ASCII to MACE, and then flash the RED LED
     inputStringToMace();
     flashTranslatedMaceString();
   }
 
-  checkForCommand();
+
+  checkForCommand();    //Checks if the input was a command, and if so, run the command.
 
 }
 
 
-String getStringInput() {
-  while (!Serial.available()) {
+String getStringInput() {       //Get a string input
+  while (!Serial.available()) { //Do nothing while Serial port is available
     ;
   }
-  return Serial.readString();
+  return Serial.readString();   //When not available (because input made) return the input
 }
 
 void getInputString() {
-  Serial.println("What is your input string?: ");
-  inputString = getStringInput();
-  Serial.println(inputString);
-  inputStringLength = inputString.length();
+#ifdef DEBUG
+  Serial.println("What is your input string?: "); //Ask user for input
+#endif
+  inputString = getStringInput(); //Run the getStringInput function to get serial input
+#ifdef DEBYG
+  Serial.println(inputString);    //Print what the user just inputted
+#endif
+  inputStringLength = inputString.length(); //Get the length of characters for this input (used for loops)
+
 #ifdef DEBUG
   Serial.print("String length: ");
   Serial.println(inputStringLength);
 #endif
+
 }
 
 

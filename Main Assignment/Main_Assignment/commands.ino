@@ -43,7 +43,8 @@ void checkForCommand() {
 }
 
 void LP() {
-  int redPWM = 0, orangePWM = 0, yellowPWM = 0, greenPWM = 0;
+  int redPWM = 0, orangePWM = 0, yellowPWM = 0, greenPWM = 0; //Initialise the LED settings
+  
 #ifdef DEBUG
   Serial.println("LP COMMAND");
 #endif
@@ -60,6 +61,7 @@ void LP() {
   Serial.println(greenPWM);
 #endif
 
+  //This if statement is error detection - if any value is >255, it alerts the user and sets the value to 255 (the LED maximum)
   if (redPWM > 255) {
     Serial.println("Red value is invalid!");
     Serial.println("Setting value to 255");
@@ -103,7 +105,7 @@ void RXIR() {
   Serial.println("RXIR COMMAND");
 #endif
   Serial.println("IR Receiver Value: ");
-  Serial.println(analogRead(IR_RECEIVER));
+  Serial.println(digitalRead(IR_RECEIVER));
 
 }
 

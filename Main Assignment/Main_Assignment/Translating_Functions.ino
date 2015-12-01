@@ -6,10 +6,12 @@ void inputStringToMace() {
     nextChar = tolower(nextChar);
     maceChar = getMaceChar(inputChar);
     nextMaceChar = getMaceChar(nextChar);
+    
 #ifdef DEBUG
     Serial.println(inputChar);
     Serial.println(nextChar);
 #endif
+
     if (nextMaceChar == " ") {
       maceString = maceString + maceChar;
     }
